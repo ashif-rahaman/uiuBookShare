@@ -9,9 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+
+        <link href="resources/css/w3.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/w3-theme-blue.css" rel="stylesheet" type="text/css"/>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+        <title>Book Share</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+
+        <!--Start of Navigation bar-->
+        <div class="w3-container w3-theme">
+            <a><img src="resources/images/logo.png" alt="logo" style="width: 10%; height: 10%"></a>
+            <a><img src="resources/images/logo2.png"></a>
+            <a href="<%= request.getContextPath()%>/register" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Register</a>
+            <a href="<%= request.getContextPath()%>/login" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Login</a>
+        </div>
+        <!--End of Navigation bar-->
     </body>
 </html>
