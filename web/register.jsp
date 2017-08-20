@@ -38,22 +38,23 @@
                         <label class="w3-xxlarge"><b>Register in Book Share</b></label>
                     </div>
                     <div>
+                        <form action="#">
+                            <label class="">UIU ID</label>
+                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" placeholder="e.g., 011131006">
+                            <label>Email</label>
+                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., email@example.com">
+                            <label>Name</label>
+                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., Bantu Khan">
+                            <label>Password</label>
+                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., *********">
+                            <label>Confirm Password</label>
+                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., *********">
 
-                        <label class="">UIU ID</label>
-                        <input class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" placeholder="e.g., 011131006">
-                        <label>Email</label>
-                        <input class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., email@example.com">
-                        <label>Name</label>
-                        <input class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., Bantu Khan">
-                        <label>Password</label>
-                        <input class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., *********">
-                        <label>Confirm Password</label>
-                        <input class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" placeholder="e.g., *********">
-
-                        <div class="w3-row w3-margin-top">
-                            <a href="#" class="w3-btn w3-theme-l1 w3-round" style="padding-left: 7%; padding-right: 7%;">Register</a>
-                            <a  href="<%= request.getContextPath()%>/login" class="w3-half w3-right w3-text-theme" style="margin-top: 3%">Already have an account</a>
-                        </div>
+                            <div class="w3-row w3-margin-top">
+                                <input type="submit" value="Register" class="w3-btn w3-theme-l1 w3-round" style="padding-left: 7%; padding-right: 7%;">
+                                <a  href="<%= request.getContextPath()%>/login" class="w3-half w3-right w3-text-theme" style="margin-top: 3%">Already have an account</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
