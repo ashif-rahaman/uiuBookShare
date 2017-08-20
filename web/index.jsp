@@ -20,8 +20,8 @@
 
         <!--Start of Navigation bar-->
         <div class="w3-container w3-theme">
-            <a><img src="resources/images/logo.png" alt="logo" style="width: 10%; height: 10%"></a>
-            <a><img src="resources/images/logo2.png"></a>
+            <a href="<%= request.getContextPath()%>/index"><img src="resources/images/logo.png" alt="logo" style="width: 10%; height: 10%"></a>
+            <a href="<%= request.getContextPath()%>/index"><img src="resources/images/logo2.png"></a>
             <a href="<%= request.getContextPath()%>/register" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Register</a>
             <a href="<%= request.getContextPath()%>/login" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Login</a>
         </div>
