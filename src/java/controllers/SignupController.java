@@ -5,12 +5,17 @@
  */
 package controllers;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import java.io.IOException;
+import java.rmi.UnknownHostException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.bson.Document;
+import util.ConnectToDatabase;
 
 /**
  *
@@ -48,10 +53,21 @@ public class SignupController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        MongoCollection<Document> userCollection = null;
+
+        try {
+
+            ConnectToDatabase database = ConnectToDatabase.getConnection("bookshare");
+            userCollection = database.getCollection("user");
+        } catch (UnknownHostException e) {
+
+            response.sendRedirect("index.jsp");
+        }
+
         //field values from the registration form
-        String uiuId = request.getParameter("uiu_id");
-        String email = request.getParameter("email");
-        String name = request.getParameter("name");
+        String uiuId = request.getParameter("uiu_id").trim();
+        String email = request.getParameter("email").trim();
+        String name = request.getParameter("name").trim();
         String password = request.getParameter("password");
         String confirmPasswrd = request.getParameter("confirm_password");
 
@@ -61,21 +77,56 @@ public class SignupController extends HttpServlet {
         //first guess that the fields are not empty or have no problem
         boolean notNull = true;
 
-        //check the fields are not empty
+        //checking wheather the input field UIU ID is empty or not
+        //If not then checking wheather it exists in database or not
         if ("".equals(uiuId)) {
 
             uiuIdMsg = "Please insert your UIU ID";
             notNull = false;
             request.getSession().setAttribute("uiuIdMsg", uiuIdMsg);
+        } else {
+
+            //Checking if the UIU ID is used or not
+            if (userCollection != null) {
+
+                //Document user will be null if the UIU ID is not used
+                Document user = userCollection.find(Filters.eq("uiuid", uiuId)).first();
+
+                if (user != null) {
+
+                    uiuIdMsg = "UIU Id is already used";
+                    notNull = false;
+                    request.getSession().setAttribute("uiuIdMsg", uiuIdMsg);
+                }
+            }
+
         }
 
+        //Checking wheather the input field Email is empty or not
+        //If Email is not empty then checking wheater it exists in database or not
         if ("".equals(email)) {
 
             emailMsg = "Please insert your email";
             notNull = false;
             request.getSession().setAttribute("emailMsg", emailMsg);
+        } else {
+
+            //Checking the Email is used or not
+            if (userCollection != null) {
+
+                //Document user will be null if Email is not used
+                Document user = userCollection.find(Filters.eq("email", email)).first();
+
+                if (user != null) {
+
+                    emailMsg = "Email is already used";
+                    notNull = false;
+                    request.getSession().setAttribute("emailMsg", emailMsg);
+                }
+            }
         }
 
+        //Checking the input field name
         if ("".equals(name)) {
 
             nameMsg = "Please insert your name";
@@ -83,6 +134,7 @@ public class SignupController extends HttpServlet {
             request.getSession().setAttribute("nameMsg", nameMsg);
         }
 
+        //Checking input field password
         if ("".equals(password)) {
 
             passwordMsg = "Please insert password";
@@ -90,6 +142,8 @@ public class SignupController extends HttpServlet {
             request.getSession().setAttribute("passwordMsg", passwordMsg);
         }
 
+        //Checking input field Confirm Password wheather 
+        //it is matched with the password field or not
         if (!confirmPasswrd.equals(password)) {
 
             confirmPasswordMsg = "Password does not match";
@@ -97,15 +151,15 @@ public class SignupController extends HttpServlet {
             request.getSession().setAttribute("confirmPasswordMsg", confirmPasswordMsg);
         }
 
+        // If any of fields is empty or
+        // if the UIU ID or Email is already used
         if (!notNull) {
 
+            //
             request.getSession().setAttribute("uiuId", uiuId);
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("name", name);
-            request.getSession().setAttribute("password", password);
             response.sendRedirect("register.jsp");
-        } else {
-
         }
     }
 
