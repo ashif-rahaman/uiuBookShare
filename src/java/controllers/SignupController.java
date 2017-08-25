@@ -155,11 +155,21 @@ public class SignupController extends HttpServlet {
         // if the UIU ID or Email is already used
         if (!notNull) {
 
-            //
             request.getSession().setAttribute("uiuId", uiuId);
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("name", name);
             response.sendRedirect("register.jsp");
+
+        } else if (userCollection != null) {
+
+            //Inserting user info to database as signup
+            Document user = new Document("uiuid", uiuId)
+                    .append("email", email)
+                    .append("name", name)
+                    .append("password", password);
+
+            userCollection.insertOne(user);
+
         }
     }
 
