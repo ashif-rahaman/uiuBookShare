@@ -50,7 +50,7 @@
                             <%
                                 }
                             %>
-                            <input name="uiu_id" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="<%= ((request.getParameter("uiuId") != null) ? request.getParameter("uiuId") : "")%>" placeholder="e.g., 011131006">
+                            <input name="uiu_id" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="<%= ((request.getSession().getAttribute("uiuId") != null) ? request.getSession().getAttribute("uiuId") : "")%>" placeholder="e.g., 011131006">
 
 
                             <label>Email</label>
@@ -62,7 +62,7 @@
                             <%
                                 }
                             %>
-                            <input name="email" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="email" value="<%= ((request.getParameter("email") != null) ? request.getParameter("email") : "")%>" placeholder="e.g., email@example.com">
+                            <input name="email" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="email" value="<%= ((request.getSession().getAttribute("email") != null) ? request.getSession().getAttribute("email") : "")%>" placeholder="e.g., email@example.com">
 
 
                             <label>Name</label>
@@ -74,19 +74,19 @@
                             <%
                                 }
                             %>
-                            <input name="name" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="<%= ((request.getParameter("name") != null) ? request.getParameter("name") : "")%>" placeholder="e.g., Bantu Khan">
+                            <input name="name" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="<%= ((request.getSession().getAttribute("name") != null) ? request.getSession().getAttribute("name") : "")%>" placeholder="e.g., Bantu Khan">
 
 
                             <label>Password</label>
                             <%
                                 String passwordMsg = (String) request.getSession().getAttribute("passwordMsg");
-                                if (uiuIdMsg != null) {
+                                if (passwordMsg != null) {
                             %>
                             <label class="w3-small w3-text-red"><%= passwordMsg%></label>
                             <%
                                 }
                             %>
-                            <input name="password" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" value="<%= ((request.getParameter("password") != null) ? request.getParameter("password") : "")%>" placeholder="e.g., *********">
+                            <input name="password" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="password" value="" placeholder="e.g., *********">
 
 
                             <label>Confirm Password</label>
@@ -104,6 +104,18 @@
                                 <input type="submit" name="register" value="Register" class="w3-btn w3-theme-l1 w3-round" style="padding-left: 7%; padding-right: 7%;">
                                 <a  href="<%= request.getContextPath()%>/login" class="w3-half w3-right w3-text-theme" style="margin-top: 3%">Already have an account</a>
                             </div>
+
+                            <%
+                                request.getSession().setAttribute("uiuId", null);
+                                request.getSession().setAttribute("email", null);
+                                request.getSession().setAttribute("name", null);
+
+                                request.getSession().setAttribute("uiuIdMsg", null);
+                                request.getSession().setAttribute("emailMsg", null);
+                                request.getSession().setAttribute("nameMsg", null);
+                                request.getSession().setAttribute("passwordMsg", null);
+                                request.getSession().setAttribute("confirmPasswordMsg", null);
+                            %>
                         </form>
                     </div>
                 </div>
