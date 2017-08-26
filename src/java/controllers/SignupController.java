@@ -8,6 +8,7 @@ package controllers;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.rmi.UnknownHostException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +40,7 @@ public class SignupController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        response.sendRedirect("register.jsp");
     }
 
     /**
@@ -59,7 +61,7 @@ public class SignupController extends HttpServlet {
 
             ConnectToDatabase database = ConnectToDatabase.getConnection("bookshare");
             userCollection = database.getCollection("user");
-        } catch (UnknownHostException e) {
+        } catch (ConnectException | UnknownHostException e) {
 
             response.sendRedirect("index.jsp");
         }
