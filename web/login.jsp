@@ -21,7 +21,7 @@
         <div class="w3-container w3-theme">
             <a href="<%= request.getContextPath()%>/index"><img src="resources/images/logo.png" alt="logo" style="width: 10%; height: 10%"></a>
             <a href="<%= request.getContextPath()%>/index"><img src="resources/images/logo2.png"></a>
-            <a href="<%= request.getContextPath()%>/register" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Register</a>
+            <a href="<%= request.getContextPath()%>/signup" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Register</a>
             <a href="<%= request.getContextPath()%>/login" class="w3-hover-blue w3-hover-text-dark-gray w3-right w3-button w3-large w3-margin-top">Login</a>
         </div>
         <!--End of Navigation bar-->
@@ -33,11 +33,27 @@
                         <label class="w3-xxlarge"><b>Login to UIU Book Share</b></label>
                     </div>
                     <div>
-                        <form action="#">
+                        <form action="<%= request.getContextPath()%>/login" method="POST">
                             <label class="">UIU ID ( or Email )</label>
-                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" placeholder="e.g., 011131006">
+                            <%
+                                String uiuIdMsg = (String) request.getSession().getAttribute("uiuIdMsg");
+                                if (uiuIdMsg != null && !"".equals(uiuIdMsg)) {
+                            %>
+                            <label class="w3-small w3-text-red"><%= uiuIdMsg%></label>
+                            <%
+                                }
+                            %>
+                            <input name="idOrEmail" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="<%= ((request.getSession().getAttribute("uiuId") != null) ? request.getSession().getAttribute("uiuId") : "")%>" placeholder="e.g., 011131006">
                             <label>Password</label>
-                            <input name="" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray" type="password" placeholder="e.g., *********">
+                            <%
+                                String passwordMsg = (String) request.getSession().getAttribute("passwordMsg");
+                                if (passwordMsg != null && !"".equals(passwordMsg)) {
+                            %>
+                            <label class="w3-small w3-text-red"><%= passwordMsg%></label>
+                            <%
+                                }
+                            %>
+                            <input name="password" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray" type="password" placeholder="e.g., *********">
 
                             <div class="w3-row w3-margin-top">
                                 <input type="submit" value="Login" class="w3-btn w3-theme-l1 w3-round" style="padding-left: 7%; padding-right: 7%;">
@@ -45,6 +61,11 @@
                             </div>
                         </form>
                     </div>
+                    <%
+                        request.getSession().setAttribute("uiuId", null);
+                        request.getSession().setAttribute("uiuIdMsg", null);
+                        request.getSession().setAttribute("passwordMsg", null);
+                    %>
                 </div>
             </div>
         </div>
