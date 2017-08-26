@@ -8,6 +8,7 @@ package util;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import java.net.ConnectException;
 import java.rmi.UnknownHostException;
 import org.bson.Document;
 
@@ -24,7 +25,8 @@ public class ConnectToDatabase {
     private static final String HOST = "localhost";
     private static final int PORT = 27017;
 
-    public static ConnectToDatabase getConnection(String databaseName) throws UnknownHostException {
+    public static ConnectToDatabase getConnection(String databaseName)
+            throws UnknownHostException, ConnectException {
 
         if (instance == null) {
 
@@ -33,7 +35,8 @@ public class ConnectToDatabase {
         return instance;
     }
 
-    public static ConnectToDatabase getConnection(String host, int port, String databaseName) throws UnknownHostException {
+    public static ConnectToDatabase getConnection(String host, int port, String databaseName)
+            throws UnknownHostException, ConnectException {
 
         if (instance == null) {
 
