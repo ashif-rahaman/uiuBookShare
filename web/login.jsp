@@ -15,7 +15,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
         <title>Book Share</title>
     </head>
-    <body>
+    <body class="w3-theme-light" style="font-family: 'Lato', sans-serif;">
 
         <!--Start of Navigation bar-->
         <div class="w3-container w3-theme">
@@ -28,7 +28,7 @@
 
         <div class="w3-container w3-padding-64">
             <div class="w3-row" style="margin-left: 25%">
-                <div class="w3-half w3-large" style="font-family: 'Lato', sans-serif;">
+                <div class="w3-half w3-large">
                     <div class="w3-margin-bottom">
                         <label class="w3-xxlarge"><b>Login to UIU Book Share</b></label>
                     </div>
@@ -57,7 +57,7 @@
 
                             <div class="w3-row w3-margin-top">
                                 <input type="submit" value="Login" class="w3-btn w3-theme-l1 w3-round" style="padding-left: 7%; padding-right: 7%;">
-                                <a  href="<%= request.getContextPath()%>/register" class="w3-half w3-right w3-text-theme" style="margin-top: 3%">Create an account</a>
+                                <a  href="<%= request.getContextPath()%>/signup" class="w3-half w3-right w3-text-theme" style="margin-top: 3%">Create an account</a>
                             </div>
                         </form>
                     </div>

@@ -16,7 +16,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
         <title>Book Share</title>
     </head>
-    <body>
+    <body class="w3-theme-light" style="font-family: 'Lato', sans-serif;">
 
         <!--Start of Navigation bar-->
         <div class="w3-container w3-theme">
