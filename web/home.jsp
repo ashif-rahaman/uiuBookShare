@@ -21,10 +21,12 @@
         <!--Start of Navigation bar-->
         <div class="w3-container w3-theme w3-row">
             <a href="<%= request.getContextPath()%>/home"><img src="resources/images/logo.png" alt="logo" class="w3-half" style="width: 8%; height: 8%; margin-left: 40%;"></a>
-            <a href="#" class="w3-half w3-button w3-hover-blue w3-hover-opacity" style="margin-top: 1%;">
-                <img src="resources/images/me.jpg" alt="profile" class="w3-round" style="width: 4%; height: 4%;"/>
-                <span style="padding-bottom: 1%">Bantu Khan</span>
-            </a>
+            <div class="w3-half">
+                <a href="#" class="w3-button w3-hover-blue w3-hover-opacity" style="margin-left: 75%; margin-top: 1%;">
+                    <img src="resources/images/me.jpg" alt="profile" class="w3-round" style="width: 25%; height: 25%;"/>
+                    <span style="">Bantu Khan</span>
+                </a>
+            </div>
         </div>
         <!--End of Navigation bar-->
 
@@ -38,9 +40,6 @@
 
                 <img src="resources/images/logo2.png" alt="bookshare_image" class="w3-margin-bottom" style="width: 100%;"/>
 
-                <!--                <div class="w3-container">
-                                    <div class="w3-large w3-card-2 w3-margin-top">-->
-
                 <a href="<%= request.getContextPath()%>/books/all" class="w3-bar-item w3-button w3-hover-theme" style="padding-left: 20%">All</a>
 
                 <a href="<%= request.getContextPath()%>/books/cse" class="w3-bar-item w3-button w3-hover-theme" style="padding-left: 20%">CSE</a>
@@ -52,13 +51,11 @@
                 <a href="<%= request.getContextPath()%>/books/bba" class="w3-bar-item w3-button w3-hover-theme" style="padding-left: 20%">BBA</a>
 
                 <a href="<%= request.getContextPath()%>/books/eco" class="w3-bar-item w3-button w3-hover-theme" style="padding-left: 20%">ECONOMICS</a>
-                <!--                    </div>
-                                </div>-->
             </div>
 
             <div class="w3-container" style="margin-left: 20%">
 
-                <div class="w3-row-padding w3-margin-top">
+                <div class="w3-row-padding w3-margin-top" style="margin-left: 20%">
                     <div class="w3-half">
                         <input name="" class="w3-large w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="" placeholder="e.g., 011131006">
                     </div>
@@ -67,9 +64,22 @@
                     </div>
                 </div>
 
-                <div class="w3-container">
+                <div class="w3-container w3-margin-top">
 
+                    <div class="w3-row w3-card w3-margin-top">
+                        <div class="w3-col" style="width: 20%">
+                            <img src="resources/images/dummy_book.jpg" alt="bookimage" style="width: 100%;"/>
+                        </div>
+                        <div class="w3-col w3-panel" style="width: 5%">
 
+                        </div>
+                        <div class="w3-col" style="width: 70%">
+                            <h3>Discrete Mathematics and its application</h3>
+                            <p>by Andrew, Michel</p>
+                            <p>Edition: 4th</p>
+                            <b><p>Posted by: Bantu Khan</p></b>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
