@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.bson.Document;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "HomeController", urlPatterns = {"/home"})
 public class HomeController extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -33,8 +34,16 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.sendRedirect("home.jsp");
+
+        Document user = (Document) request.getSession().getAttribute("user");
+        if (user != null) {
+
+            request.getSession().setAttribute("username", user.get("name"));
+            response.sendRedirect("home.jsp");
+        } else {
+
+            response.sendRedirect("login.jsp");
+        }
     }
 
     /**
@@ -48,6 +57,7 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
     /**

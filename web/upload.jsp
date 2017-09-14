@@ -31,7 +31,7 @@
                         <label class="w3-xxlarge"><b>Add an advertise</b></label>
                     </div>
                     <div>
-                        <form action="#" method="POST">
+                        <form action="<%= request.getContextPath()%>/upload" method="POST">
                             <label class="">Book Name</label>
                             <input name="bookname" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="text" value="" placeholder="e.g., Discrete Mathematics">
 
@@ -44,8 +44,8 @@
                             <label class="">Price( in Taka)</label>
                             <input name="price" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="number" min="0" value="" placeholder="e.g., 250">
 
-                            <label class="">Upload a photo of book</label>
-                            <input name="bookphoto" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="file" value="" placeholder="e.g., 250">
+                            <!--                            <label class="">Upload a photo of book</label>
+                                                        <input name="bookphoto" class="w3-xlarge w3-input w3-border w3-round-large w3-light-gray w3-margin-bottom" type="image" value="" placeholder="e.g., 250">-->
 
                             <div class="w3-row w3-margin-top">
                                 <input type="submit" value="Upload" class="w3-btn w3-theme-l1 w3-round" style="padding-left: 7%; padding-right: 7%;">

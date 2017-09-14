@@ -3,35 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package admin_contrllers;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.bson.Document;
+import util.ConnectToDatabase;
 
 /**
  *
  * @author ashif
  */
-@WebServlet(name = "UploadAdvertise", urlPatterns = {"/upload"})
-public class UploadAdvertise extends HttpServlet {
+@WebServlet(name = "AdminPanel", urlPatterns = {"/admin"})
+public class AdminPanel extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        response.sendRedirect("upload.jsp");
-    }
+    private static final long serialVersionUID = 1L;
+
+    private ConnectToDatabase database;
+    private MongoCollection<Document> collection;
+
+    private Document document;
+    private MongoCursor<Document> cursor;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -45,7 +43,17 @@ public class UploadAdvertise extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        database = ConnectToDatabase.getConnection("bookshare");
+        collection = database.getCollection("user_authentication");
+        document = collection.find().first();
+
+        System.out.println(document.get("userid") + " " + document.get("pass"));
+
+        request.getSession().setAttribute("user", document.get("userid"));
+        request.getSession().setAttribute("pass", document.get("password"));
+
+        response.sendRedirect("adminViewAll.jsp");
     }
 
     /**
@@ -59,7 +67,6 @@ public class UploadAdvertise extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

@@ -19,13 +19,26 @@
     <body class="w3-theme-light" style="font-family: 'Lato', sans-serif;">
 
         <!--Start of Navigation bar-->
-        <div class="w3-container w3-theme w3-row">
-            <a href="<%= request.getContextPath()%>/home"><img src="resources/images/logo.png" alt="logo" class="w3-half" style="width: 8%; height: 8%; margin-left: 40%;"></a>
+        <div class="w3-container w3-theme w3-row w3-bar">
+            <a href="<%= request.getContextPath()%>/home"><img src="resources/images/logo.png" alt="logo" class="w3-half w3-bar-item" style="width: 8%; height: 8%; margin-left: 40%;"></a>
+
             <div class="w3-half">
-                <a href="#" class="w3-button w3-hover-blue w3-hover-opacity" style="margin-left: 75%; margin-top: 1%;">
+                <div class="w3-button w3-blue w3-hover-blue w3-dropdown-hover" style="margin-left: 75%; margin-top: 1%;">
                     <img src="resources/images/me.jpg" alt="profile" class="w3-round" style="width: 25%; height: 25%;"/>
-                    <span style="">Bantu Khan</span>
-                </a>
+
+                    <%
+                        String name = (String) request.getSession().getAttribute("username");
+                        name = name.split(" ")[0];
+                    %>
+
+                    <span style=""><%= name%></span>
+                    <div class="w3-dropdown-content w3-bar-block w3-border w3-round-small" style="margin-top: 0.5%">
+                        <a href="<%= request.getContextPath()%>/upload" class="w3-bar-item w3-button w3-hover-theme">Upload Advertise</a>
+                        <a href="#" class="w3-bar-item w3-button w3-hover-theme">My Advertise</a>
+                        <a href="#" class="w3-bar-item w3-button w3-hover-theme">Profile</a>
+                        <a href="<%= request.getContextPath()%>/logout" class="w3-bar-item w3-button w3-hover-theme">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
         <!--End of Navigation bar-->

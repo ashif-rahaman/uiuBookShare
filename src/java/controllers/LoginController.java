@@ -25,7 +25,7 @@ import util.ConnectToDatabase;
  */
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
-    
+
     private static final long serialVersionUID = 1L;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -40,8 +40,17 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.sendRedirect("login.jsp");
+
+        Document logedInUser = (Document) request.getSession().getAttribute("user");
+
+        if (logedInUser != null) {
+
+            request.getSession().setAttribute("user", logedInUser);
+            response.sendRedirect("home");
+        } else {
+
+            response.sendRedirect("login.jsp");
+        }
     }
 
     /**
@@ -55,66 +64,68 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ConnectToDatabase database;
         MongoCollection<Document> userCollection = null;
-        
+
         String id = request.getParameter("idOrEmail").trim();
         String password = request.getParameter("password");
-        
+
         boolean empty = false;
-        
+
         if (id.isEmpty()) {
-            
+
             empty = true;
             request.getSession().setAttribute("uiuIdMsg", "Enter UIU ID or email");
         }
-        
+
         if (password.isEmpty()) {
-            
+
             empty = true;
             request.getSession().setAttribute("uiuId", id);
             request.getSession().setAttribute("passwordMsg", "Enter password");
         }
-        
+
         if (empty) {
-            
+
             response.sendRedirect("login.jsp");
             return;
         }
-        
+
         try {
-            
+
             database = ConnectToDatabase.getConnection("bookshare");
             userCollection = database.getCollection("user");
         } catch (ConnectException | UnknownHostException e) {
-            
+
             response.sendRedirect("index.jsp");
             return;
         }
-        
+
         if (userCollection == null) {
-            
+
             response.sendRedirect("index.jsp");
             return;
         }
-        
+
         Bson query[] = {Filters.eq("uiuid", id), Filters.eq("email", id)};
         Document user = userCollection.find(Filters.or(query)).first();
-        
+
         if (user == null) {
-            
+
             request.getSession().setAttribute("uiuIdMsg", "Incorrect UIU ID or email");
             response.sendRedirect("login.jsp");
         } else if (!password.equals(user.getString("password"))) {
-            
+
             request.getSession().setAttribute("uiuId", id);
             request.getSession().setAttribute("passwordMsg", "Incorrect Password");
             response.sendRedirect("login.jsp");
         } else {
-            
-            response.sendRedirect("home.jsp");
+
+            request.getSession().setAttribute("user", user);
+            response.sendRedirect("home");
         }
+
     }
 
     /**

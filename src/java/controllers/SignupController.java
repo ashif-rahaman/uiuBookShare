@@ -40,7 +40,16 @@ public class SignupController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.sendRedirect("register.jsp");
+        Document logedInUser = (Document) request.getSession().getAttribute("user");
+
+        if (logedInUser != null) {
+
+            request.getSession().setAttribute("user", logedInUser);
+            response.sendRedirect("home");
+        } else {
+
+            response.sendRedirect("register.jsp");
+        }
     }
 
     /**
