@@ -71,7 +71,7 @@ public class UploadAdvertiseController extends HttpServlet {
             advertiseCollection = database.getCollection("advertise");
         } catch (ConnectException | UnknownHostException e) {
 
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("home");
         }
 
         String bookname = request.getParameter("bookname").trim();
@@ -110,7 +110,13 @@ public class UploadAdvertiseController extends HttpServlet {
 
                 advertiseCollection.insertOne(advertise);
 
+            } else {
+
+                response.sendRedirect("upload");
+                return;
             }
+
+            response.sendRedirect("home");
         }
     }
 

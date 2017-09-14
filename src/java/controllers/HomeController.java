@@ -5,13 +5,17 @@
  */
 package controllers;
 
+import com.mongodb.client.MongoCollection;
 import java.io.IOException;
+import java.net.ConnectException;
+import java.rmi.UnknownHostException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.bson.Document;
+import util.ConnectToDatabase;
 
 /**
  *
@@ -35,10 +39,27 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        MongoCollection<Document> advertiseCollection = null;
+
+        try {
+
+            ConnectToDatabase database = ConnectToDatabase.getConnection("bookshare");
+            advertiseCollection = database.getCollection("advertise");
+        } catch (ConnectException | UnknownHostException e) {
+
+            response.sendRedirect("index.jsp");
+        }
+
         Document user = (Document) request.getSession().getAttribute("user");
         if (user != null) {
 
             request.getSession().setAttribute("username", user.get("name"));
+
+            if (advertiseCollection != null) {
+
+//                DBCursor advertises = (DBCursor) advertiseCollection.find();
+            }
+
             response.sendRedirect("home.jsp");
         } else {
 
